@@ -1,12 +1,12 @@
-import React from 'react'
-import Header from '../components/Header'
+import React from "react";
+import Header from "../components/Header";
 
 const User = () => {
   return (
-    <>
-    <Header />
-    </>
-  )
-}
+    <div className="bg-darkBlue h-screen w-screen absolute">
+      <Header />
+    </div>
+  );
+};
 
-export default User
+export default User;

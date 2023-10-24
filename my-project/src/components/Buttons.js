@@ -6,7 +6,7 @@ const Button = (props) => {
       <button
         type={props.type}
         onClick={props.onClick}
-        className={`select-none w-full h-full rounded-xl ${props.className}`}
+        className={`select-none w-full h-full rounded-xl border-[1px] border-black ${props.className}`}
       >
         {props.buttonName}{" "}
       </button>

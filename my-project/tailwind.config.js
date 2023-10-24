@@ -10,7 +10,8 @@ module.exports = {
         'smartStick-Logo' : "url('/src/assets/smartStickLogo.png')"
       },
       colors: {
-        darkBlue : "#1E2446"
+        darkBlue : "#1E2446",
+        headerColor : "#171C36"
       }
     },
   },

@@ -11,7 +11,7 @@ const Header = () => {
         console.log(Drop)
     }
   return (
-    <div className="flex h-16 bg-headerColor">
+    <div className="flex h-16 bg-headerColor max-w-full">
       <div className="h-full flex  items-center w-screen">
         <img src={Logo} className="h-16" />
       </div>

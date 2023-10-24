@@ -11,7 +11,8 @@ module.exports = {
       },
       colors: {
         darkBlue : "#1E2446",
-        headerColor : "#171C36"
+        headerColor : "#171C36",
+        cardColor : "#1A1826"
       }
     },
   },

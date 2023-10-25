@@ -2,6 +2,9 @@ import React from "react";
 import Add from "../assets/Add.png";
 import sample from "../Sampledata/sample";
 import Button from "./Buttons";
+import Remove from "../assets/remove.png";
+import Edit from "../assets/edit.png";
+
 
 const Table = (props) => {
   return (
@@ -52,14 +55,21 @@ const Table = (props) => {
                       <td class="whitespace-nowrap px-6 py-4">{item.Phone}</td>
 
                       <td class="flex items-center justify-center gap-4 w-full  py-4">
-                        <Button
-                          buttonName="Remove"
-                          className="text-white p-2 bg-red-500 min-w-[100px] font-semibold"
-                        />
-                        <Button
-                          buttonName="Edit"
-                          className="text-black font-semibold p-2 bg-yellow-300 min-w-[100px]"
-                        />
+                        <div className="bg-red-500 rounded-lg">
+                          <Button
+                            image={Remove}
+                            buttonName="Remove"
+                            className="text-white p-2 min-w-[50px] font-semibold"
+                          />
+                        </div>
+
+                        <div className="bg-yellow-400 rounded-lg">
+                          <Button
+                            image = {Edit}
+                            buttonName="Edit"
+                            className="text-black font-semibold p-2 min-w-[50px]"
+                          />
+                        </div>
                       </td>
                     </tr>
                   ))}

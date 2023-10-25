@@ -4,9 +4,13 @@ import sample from "../Sampledata/sample";
 import Button from "./Buttons";
 import Remove from "../assets/remove.png";
 import Edit from "../assets/edit.png";
-
+import { useNavigate, Outlet } from "react-router-dom";
 
 const Table = (props) => {
+
+  const navigate = useNavigate()
+
+  
   return (
     <div className="flex flex-col">
       <div className="flex items-center px-6 h-10 bg-tableColor  rounded-md w-[1000px] text-white text-lg">
@@ -14,7 +18,7 @@ const Table = (props) => {
         <div className="flex w-full justify-end ">
           <div className="flex items-center bg-green-600 rounded-xl">
             <img src={Add} className="object-contain h-[20px] w-[20px] ml-2" />
-            <button className="select-none w-full h-full  text-sm p-2 ">
+            <button className="select-none w-full h-full  text-sm p-2 " onClick={() => navigate("/User/Register")}>
               Add Contact
             </button>
           </div>
@@ -39,7 +43,7 @@ const Table = (props) => {
                     <th scope="col" class="px-6 py-4">
                       Phone
                     </th>
-                    <th scope="col" class="pl-40 py-4">
+                    <th scope="col" class="pl-40 py-4 ">
                       Actions
                     </th>
                   </tr>
@@ -54,7 +58,7 @@ const Table = (props) => {
                       </td>
                       <td class="whitespace-nowrap px-6 py-4">{item.Phone}</td>
 
-                      <td class="flex items-center justify-center gap-4 w-full  py-4">
+                      <td class="flex items-center justify-center gap-4 w-full py-4">
                         <div className="bg-red-500 rounded-lg">
                           <Button
                             image={Remove}
@@ -65,7 +69,7 @@ const Table = (props) => {
 
                         <div className="bg-yellow-400 rounded-lg">
                           <Button
-                            image = {Edit}
+                            image={Edit}
                             buttonName="Edit"
                             className="text-black font-semibold p-2 min-w-[50px]"
                           />
@@ -79,6 +83,7 @@ const Table = (props) => {
           </div>
         </div>
       </div>
+      <Outlet />
     </div>
   );
 };

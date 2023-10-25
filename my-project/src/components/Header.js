@@ -8,7 +8,6 @@ const Header = () => {
 
     const handleDropDown = () => {
         setDown(!Drop)
-        console.log(Drop)
     }
   return (
     <div className="flex h-16 bg-headerColor max-w-full">

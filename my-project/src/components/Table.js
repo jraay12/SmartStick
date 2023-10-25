@@ -16,9 +16,9 @@ const Table = (props) => {
       <div className="flex items-center px-6 h-10 bg-tableColor  rounded-md w-[1000px] text-white text-lg">
         {props.label}
         <div className="flex w-full justify-end ">
-          <div className="flex items-center bg-green-600 rounded-xl">
-            <img src={Add} className="object-contain h-[20px] w-[20px] ml-2" />
-            <button className="select-none w-full h-full  text-sm p-2 " onClick={() => navigate("/User/Register")}>
+          <div className="flex items-center bg-green-600 rounded-xl w-36 ">
+            <img src={Add} className="absolute object-contain h-[20px] w-[20px] mx-2 z-0" />
+            <button className="select-none w-full h-full  text-sm p-2 z-10" onClick={() => navigate("/User/Register")}>
               Add Contact
             </button>
           </div>

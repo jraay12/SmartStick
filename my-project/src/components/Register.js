@@ -20,12 +20,12 @@ const Register = () => {
             <Input label="Address" className="text-white" />
             <div className="flex justify-between pt-4">
               <div className="bg-green-600 min-w-[150px] h-10 rounded-lg">
-                <Buttons buttonName="Register" className="min-w-full " />
+                <Buttons buttonName="Register" className="min-w-full text-white" />
               </div>
               <div className="bg-red-700 min-w-[150px] h-10 rounded-lg">
                 <Buttons
                   buttonName="Cancel"
-                  className="min-w-full"
+                  className="min-w-full text-white"
                   onClick={() => navigate("/User")}
                 />
               </div>

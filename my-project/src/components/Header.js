@@ -1,14 +1,15 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Logo from "../assets/smartStickLogoWhite.png";
 import sampleProfile from "../assets/sampleProfile.png";
 import DropDown from "../assets/DropDown.png";
+import DropDownItem from "../components/DropDownItem";
 
 const Header = () => {
-    const [Drop, setDown] = useState(true)
+  const [Drop, setDown] = useState(true);
 
-    const handleDropDown = () => {
-        setDown(!Drop)
-    }
+  const handleDropDown = () => {
+    setDown(!Drop);
+  };
   return (
     <div className="flex h-16 bg-headerColor max-w-full">
       <div className="h-full flex  items-center w-screen">
@@ -21,6 +22,7 @@ const Header = () => {
           <img src={DropDown} className={`h-10 ${Drop && "rotate-180"} `} />
         </button>
       </div>
+      {Drop ? "" : <DropDownItem />}
     </div>
   );
 };

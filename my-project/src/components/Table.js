@@ -4,22 +4,31 @@ import sample from "../Sampledata/sample";
 import Button from "./Buttons";
 import Remove from "../assets/remove.png";
 import Edit from "../assets/edit.png";
-import { useNavigate, Outlet } from "react-router-dom";
+import View from "../assets/View.png";
+
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
 
 const Table = (props) => {
-
-  const navigate = useNavigate()
-
   
+  const location = useLocation();
+
+  const isSpecificRoute = location.pathname === "/Admin";
+
   return (
     <div className="flex flex-col">
       <div className="flex items-center px-6 h-10 bg-tableColor  rounded-md w-[1000px] text-white text-lg">
         {props.label}
         <div className="flex w-full justify-end ">
-          <div className="flex items-center bg-green-600 rounded-xl w-36 ">
-            <img src={Add} className="absolute object-contain h-[20px] w-[20px] mx-2 z-0" />
-            <button className="select-none w-full h-full  text-sm p-2 z-10" onClick={() => navigate("/User/Register")}>
-              Add Contact
+          <div className="flex items-center bg-green-600 rounded-xl w-36 z-0 ">
+            <img
+              src={Add}
+              className="absolute object-contain h-[20px] w-[20px] mx-2 z-0"
+            />
+            <button
+              className="select-none w-full h-full  text-sm p-2 z-10"
+              onClick={props.onClick}
+            >
+              {props.buttonName}
             </button>
           </div>
         </div>
@@ -31,19 +40,19 @@ const Table = (props) => {
               <table class="min-w-full text-left text-sm font-light">
                 <thead class="border-b bg-tableHeaderColor text-white font-medium ">
                   <tr>
-                    <th scope="col" class="px-6 py-4">
+                    <th scope="col" className="px-6 py-4">
                       #
                     </th>
-                    <th scope="col" class="px-6 py-4">
+                    <th scope="col" className="px-6 py-4">
                       Name
                     </th>
-                    <th scope="col" class="px-6 py-4">
+                    <th scope="col" className="px-6 py-4">
                       Address
                     </th>
-                    <th scope="col" class="px-6 py-4">
+                    <th scope="col" className="px-6 py-4">
                       Phone
                     </th>
-                    <th scope="col" class="pl-40 py-4 ">
+                    <th scope="col" className={`${isSpecificRoute && "pl-60"} py-4 pl-40`}>
                       Actions
                     </th>
                   </tr>
@@ -59,21 +68,31 @@ const Table = (props) => {
                       <td class="whitespace-nowrap px-6 py-4">{item.Phone}</td>
 
                       <td class="flex items-center justify-center gap-4 w-full py-4">
-                        <div className="bg-red-500 rounded-lg">
+                        <div className="bg-red-500 rounded-lg hover:scale-105 transition">
                           <Button
                             image={Remove}
                             buttonName="Remove"
-                            className="text-white p-2 min-w-[50px] font-semibold"
+                            className="text-white p-2 min-w-[50px] font-semibold "
                           />
                         </div>
 
-                        <div className="bg-yellow-400 rounded-lg">
+                        <div className="bg-yellow-400 rounded-lg hover:scale-105 transition">
                           <Button
                             image={Edit}
                             buttonName="Edit"
-                            className="text-black font-semibold p-2 min-w-[50px]"
+                            className="text-white  font-semibold p-2 min-w-[50px]"
                           />
                         </div>
+
+                        {isSpecificRoute && (
+                          <div className="bg-orange-400 rounded-lg min-w-[180px] hover:scale-105 transition">
+                            <Button
+                              image={View}
+                              buttonName="View Contacts"
+                              className="text-white  font-semibold p-2 min-w-[180px] w-[100px]  "
+                            />
+                          </div>
+                        )}
                       </td>
                     </tr>
                   ))}

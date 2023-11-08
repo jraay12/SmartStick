@@ -16,7 +16,7 @@ const Admin = () => {
       <div className="bg-darkBlue h-screen max-w-full absolute select-none">
         <div className="flex flex-col gap-4 max-w-full items-center">
           <Header />
-          <Card label="Registered Users" number={userDetails?.userCount}  className="text-6xl" image={userNumber}/>
+          <Card label="Registered Users" number={userDetails?.Count}  className="text-6xl" image={userNumber}/>
           <AdminTable
             label="Users"
             buttonName="Add New User"

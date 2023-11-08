@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import AuthContext from "../auth/Context";
 import Add from "../assets/Add.png";
 import Button from "./Buttons";
@@ -7,16 +7,13 @@ import Edit from "../assets/edit.png";
 import View from "../assets/View.png";
 import { GetContactDetails } from "../api/axios";
 
-
 import { Outlet, useLocation } from "react-router-dom";
 
 const Table = (props) => {
-  const {auth} = useContext(AuthContext)
+  const { auth } = useContext(AuthContext);
 
-  const {data: contactDetails} = GetContactDetails(auth?.userId)
+  const { data: contactDetails } = GetContactDetails(auth?.userId);
 
-  
-  
   const location = useLocation();
 
   const isSpecificRoute = location.pathname === "/Admin";
@@ -40,11 +37,11 @@ const Table = (props) => {
           </div>
         </div>
       </div>
-      <div class="flex flex-col">
+      <div class="flex flex-col max-h-[300px]">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div class="overflow-hidden">
-              <table class="min-w-full text-left text-sm font-light">
+              <table class="min-w-full text-left text-sm font-semibold">
                 <thead class="border-b bg-tableHeaderColor text-white font-medium ">
                   <tr>
                     <th scope="col" className="px-6 py-4">
@@ -59,20 +56,29 @@ const Table = (props) => {
                     <th scope="col" className="px-6 py-4">
                       Phone
                     </th>
-                    <th scope="col" className={`${isSpecificRoute && "pl-60"} py-4 pl-40`}>
+                    <th
+                      scope="col"
+                      className={`${isSpecificRoute && "pl-60"} py-4 pl-40`}
+                    >
                       Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  { contactDetails?.contacts?.map((items, index) => (
+                  {contactDetails?.contacts?.map((items, index) => (
                     <tr className="border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700">
-                      <td className="whitespace-nowrap px-6 py-4 font-medium">{index + 1}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{items?.name}</td>
+                      <td className="whitespace-nowrap px-6 py-4 font-medium">
+                        {index + 1}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {items?.name}
+                      </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {items?.address?.street}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">{items.contact_number}</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {items.contact_number}
+                      </td>
 
                       <td className="flex items-center justify-center gap-4 w-full py-4">
                         <div className="bg-red-500 rounded-lg hover:scale-105 transition">

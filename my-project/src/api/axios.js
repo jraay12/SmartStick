@@ -58,3 +58,19 @@ const userRegister = async (value) => {
 export const MutateUserRegiter = () => {
   return useMutation((value) => userRegister(value));
 };
+
+
+const addContact = async(value) => {
+  const token = sessionStorage.getItem("access_token");
+  const validate = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/form-data",
+  };
+
+  return await axios.post(`${baseUrl}/add-contacts`, value, { headers: validate });
+}
+
+export const MutateContacts = () => {
+  return useMutation((value) => addContact(value))
+}
+

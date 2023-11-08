@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Input from "../components/Input";
 import Buttons from "../components/Buttons";
 import Logo from "../assets/smartStickLogo.png";
@@ -9,7 +11,7 @@ import AuthContext from "../auth/Context";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const { mutate } = MutateLogin();
 
   const inputRef = useRef();
@@ -26,19 +28,22 @@ const Login = () => {
     const infos = { email, password };
     mutate(infos, {
       onSuccess: (data) => {
-        console.log(data.data)
-        const access_token = data?.data?.data?.token
+        const access_token = data?.data?.data?.token;
         sessionStorage.setItem("access_token", access_token);
-        const name = data.data?.data?.user?.name
-        const userId = data.data?.data?.user?.id
+        const name = data.data?.data?.user?.name;
+        const userId = data.data?.data?.user?.id;
+        const role = data.data?.data?.user?.role;
+        const number = data.data?.data?.user?.contact_number;
         if (data.data?.data?.user?.role === "admin") {
-          navigate("/Admin")
-        } 
-        else {
-          navigate("/User")
+          navigate("/Admin");
+        } else {
+          navigate("/User");
         }
-        setAuth({ name, userId})
+        setAuth({ name, userId, role, number });
       },
+      onError : () => {
+        toast.error("Invalid Credentials")
+      }
     });
   };
 
@@ -66,7 +71,7 @@ const Login = () => {
                 type="password"
                 placeholder="Password"
                 value={password}
-                onChange = {(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
 
               <div className="w-full h-10 xxl:h-20 xxl:text-4xl rounded-lg  flex justify-center items-center font-bold bg-blue hover:bg-opacity-60 text-white text-lg xxl:mt-10 mt-2">
@@ -80,6 +85,20 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />{" "}
     </div>
   );
 };

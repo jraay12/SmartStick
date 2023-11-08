@@ -1,14 +1,20 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import Input from "../components/Input";
 import Buttons from "../components/Buttons";
-import { useNavigate, useLocation } from "react-router-dom";
-import { MutateUserRegiter } from "../api/axios";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { MutateUserRegiter, MutateContacts } from "../api/axios";
+import { useQueryClient } from "react-query";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const navigate = useNavigate();
+  const client = useQueryClient();
+  let { id } = useParams();
   const inputRef = useRef();
   const location = useLocation();
-  const {mutate} = MutateUserRegiter();
+  const { mutate: userRegister } = MutateUserRegiter();
+  const { mutate: contactsRegister } = MutateContacts();
   const isSpecificRoute = location.pathname === "/Admin/Register";
 
   const [name, setName] = useState("");
@@ -27,7 +33,7 @@ const Register = () => {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("password", password);
-    formData.append("number", number);
+    formData.append("contact_number", number);
     formData.append("street", street);
     formData.append("city", city);
     formData.append("province", province);
@@ -35,11 +41,40 @@ const Register = () => {
 
     const values = formData;
 
-    mutate(values, {
-      onSuccess: () => {
+    userRegister(values, {
+      onSuccess: async () => {
+        toast.success("Created Successfuly")
+        client.invalidateQueries(["user-details"]);
         navigate(-1);
+      }, onError: async() => {
+        toast.error("Failed to Create")
       }
-    })
+    });
+  };
+
+  const handleContactsRegister = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("user_id", id);
+    formData.append("contact_number", number);
+    formData.append("street", street);
+    formData.append("city", city);
+    formData.append("province", province);
+    formData.append("zipcode", zipcode);
+
+    const values = formData;
+
+    contactsRegister(values, {
+      onSuccess: () => {
+        client.invalidateQueries(["details"]);
+        navigate(-1);
+      },
+      onError: () => {
+        toast.error("Limit Exceed")
+      },
+    });
   };
 
   const handleCancel = () => {
@@ -50,10 +85,13 @@ const Register = () => {
     inputRef.current.focus();
   }, []);
 
+  console.log(isSpecificRoute);
   return (
     <div className="flex justify-center items-center absolute inset-0 backdrop-blur-sm">
       <div className="min-h-[300px] min-w-[400px] max-w-[1000px] bg-cardColor rounded-lg">
-        <form onSubmit={handleRegister}>
+        <form
+          onSubmit={isSpecificRoute ? handleRegister : handleContactsRegister}
+        >
           <div className="space-y-2 m-6 ">
             <div className="flex flex-wrap justify-evenly gap-5">
               <Input
@@ -114,7 +152,7 @@ const Register = () => {
               <div className="bg-green-600 min-w-[150px] h-10 rounded-lg">
                 <Buttons
                   buttonName="Register"
-                  className="min-w-full text-white"
+                  className="min-w-full text-white "
                 />
               </div>
               <div className="bg-red-700 min-w-[150px] h-10 rounded-lg">
@@ -128,6 +166,20 @@ const Register = () => {
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />{" "}
     </div>
   );
 };

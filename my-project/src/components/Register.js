@@ -2,11 +2,13 @@ import React, { useRef, useEffect, useState } from "react";
 import Input from "../components/Input";
 import Buttons from "../components/Buttons";
 import { useNavigate, useLocation } from "react-router-dom";
+import { MutateUserRegiter } from "../api/axios";
 
 const Register = () => {
   const navigate = useNavigate();
   const inputRef = useRef();
   const location = useLocation();
+  const {mutate} = MutateUserRegiter();
   const isSpecificRoute = location.pathname === "/Admin/Register";
 
   const [name, setName] = useState("");
@@ -32,6 +34,12 @@ const Register = () => {
     formData.append("zipcode", zipcode);
 
     const values = formData;
+
+    mutate(values, {
+      onSuccess: () => {
+        navigate(-1);
+      }
+    })
   };
 
   const handleCancel = () => {

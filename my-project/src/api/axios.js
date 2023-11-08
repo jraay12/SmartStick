@@ -25,12 +25,10 @@ const contactDetails = async (userId) => {
 };
 
 export const GetContactDetails = (userId) => {
-  
   return useQuery(["details"], () => contactDetails(userId));
 };
 
-
-const userDetails = async() => {
+const userDetails = async () => {
   const token = sessionStorage.getItem("access_token");
   const validate = {
     Authorization: `Bearer ${token}`,
@@ -41,8 +39,22 @@ const userDetails = async() => {
   });
 
   return value.data;
-}
+};
 
 export const UserDetails = () => {
-  return useQuery(['user-details'], () => userDetails())
-}
+  return useQuery(["user-details"], () => userDetails());
+};
+
+const userRegister = async (value) => {
+  const token = sessionStorage.getItem("access_token");
+  const validate = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/form-data",
+  };
+
+  return await axios.post(`${baseUrl}/create`, value, { headers: validate });
+};
+
+export const MutateUserRegiter = () => {
+  return useMutation((value) => userRegister(value));
+};

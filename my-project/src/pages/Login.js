@@ -30,13 +30,14 @@ const Login = () => {
         const access_token = data?.data?.data?.token
         sessionStorage.setItem("access_token", access_token);
         const name = data.data?.data?.user?.name
+        const userId = data.data?.data?.user?.id
         if (data.data?.data?.user?.role === "admin") {
           navigate("/Admin")
         } 
         else {
           navigate("/User")
         }
-        setAuth({ name })
+        setAuth({ name, userId})
       },
     });
   };

@@ -1,25 +1,21 @@
-import React, {useContext} from "react";
-import AuthContext from "../auth/Context";
+import React from "react";
 import Add from "../assets/Add.png";
 import Button from "./Buttons";
 import Remove from "../assets/remove.png";
 import Edit from "../assets/edit.png";
 import View from "../assets/View.png";
-import { GetContactDetails } from "../api/axios";
+import { UserDetails } from "../api/axios";
 
 
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const Table = (props) => {
-  const {auth} = useContext(AuthContext)
 
-  const {data: contactDetails} = GetContactDetails(auth?.userId)
+  const {data: userDetails} = UserDetails()
 
   
   
-  const location = useLocation();
 
-  const isSpecificRoute = location.pathname === "/Admin";
 
   return (
     <div className="flex flex-col">
@@ -59,20 +55,20 @@ const Table = (props) => {
                     <th scope="col" className="px-6 py-4">
                       Phone
                     </th>
-                    <th scope="col" className={`${isSpecificRoute && "pl-60"} py-4 pl-40`}>
+                    <th scope="col" className="py-4 pl-60">
                       Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  { contactDetails?.contacts?.map((items, index) => (
+                  {Array.isArray(userDetails?.User) && userDetails?.User?.map((items, index) => (
                     <tr className="border-b bg-neutral-100 dark:border-neutral-500 dark:bg-neutral-700">
                       <td className="whitespace-nowrap px-6 py-4 font-medium">{index + 1}</td>
                       <td className="whitespace-nowrap px-6 py-4">{items?.name}</td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {items?.address?.street}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">{items.contact_number}</td>
+                      <td className="whitespace-nowrap px-6 py-4">{items?.number}</td>
 
                       <td className="flex items-center justify-center gap-4 w-full py-4">
                         <div className="bg-red-500 rounded-lg hover:scale-105 transition">
@@ -90,8 +86,6 @@ const Table = (props) => {
                             className="text-white  font-semibold p-2 min-w-[50px]"
                           />
                         </div>
-
-                        {isSpecificRoute && (
                           <div className="bg-orange-400 rounded-lg min-w-[180px] hover:scale-105 transition">
                             <Button
                               image={View}
@@ -99,7 +93,7 @@ const Table = (props) => {
                               className="text-white  font-semibold p-2 min-w-[180px] w-[100px]  "
                             />
                           </div>
-                        )}
+                        
                       </td>
                     </tr>
                   ))}

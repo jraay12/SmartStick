@@ -102,3 +102,18 @@ const deleteContacts = async(id) => {
 export const MutateDeleteContacts = () => {
   return useMutation((id) => deleteContacts(id))
 }
+
+const userContactDetails = async(id) => {
+  const token = sessionStorage.getItem("access_token");
+  const validate = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/form-data",
+  };
+
+  return await axios.get(`${baseUrl}/user-contacts/${id}`, {headers: validate})
+
+}
+
+const GetUserContactDetails = () => {
+  return useQuery(['userContactDetails'], (id) => userContactDetails(id))
+}

@@ -4,21 +4,30 @@ import Button from "./Buttons";
 import Remove from "../assets/remove.png";
 import Edit from "../assets/edit.png";
 import View from "../assets/View.png";
-import { UserDetails } from "../api/axios";
-import { MutateDelete } from "../api/axios";
+import { UserDetails,  MutateDelete } from "../api/axios";
 import { useQueryClient } from "react-query";
 import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 const Table = (props) => {
   const { data: userDetails } = UserDetails();
+
+  const navigate = useNavigate();
+
   const { mutate } = MutateDelete();
   const client = useQueryClient();
-
   const handleDelete = (value) => {
     mutate(value, {
       onSuccess: () => client.invalidateQueries(["user-details"]),
     });
   };
+
+  const handleUserContactsDetails = (id) => {
+    navigate(`/Admin/Details/${id}`)
+  }
+
+  
   return (
     <div className="flex flex-col">
       <div className="flex items-center px-6 h-10 bg-tableColor  rounded-md w-[1000px] text-white text-lg">
@@ -99,7 +108,8 @@ const Table = (props) => {
                             <Button
                               image={View}
                               buttonName="View Contacts"
-                              className="text-white  font-semibold p-2 min-w-[180px] w-[100px]  "
+                              className="text-white  font-semibold p-2 min-w-[180px] w-[100px]"
+                              onClick={() => handleUserContactsDetails(items.id)}
                             />
                           </div>
                         </td>

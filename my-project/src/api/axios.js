@@ -110,10 +110,11 @@ const userContactDetails = async(id) => {
     "Content-Type": "application/form-data",
   };
 
-  return await axios.get(`${baseUrl}/user-contacts/${id}`, {headers: validate})
+  const value = await axios.get(`${baseUrl}/user-contacts/${id}`, {headers: validate})
+  return value.data
 
 }
 
-const GetUserContactDetails = () => {
-  return useQuery(['userContactDetails'], (id) => userContactDetails(id))
+export const GetUserContactDetails = (id) => {
+  return useQuery(['userContactDetails'], () => userContactDetails(id))
 }

@@ -6,6 +6,7 @@ import Admin from "./pages/Admin";
 import  ProtectedRoute  from "./auth/ProtectedRoute";
 import  UserProtectedRoute  from "./auth/UserProtectedRoute";
 import { QueryClient, QueryClientProvider } from "react-query";
+import UserContactDetails from "./components/UserContactDetails";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/Admin" element={<Admin />}>
             <Route path="Register" element={<Register />} />
+            <Route path="Details/:id" element={<UserContactDetails />} />
           </Route>
         </Route>
       </Routes>

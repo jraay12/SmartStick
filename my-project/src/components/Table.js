@@ -6,12 +6,10 @@ import Remove from "../assets/remove.png";
 import Edit from "../assets/edit.png";
 import View from "../assets/View.png";
 import { GetContactDetails } from "../api/axios";
-
 import { Outlet, useLocation } from "react-router-dom";
 
 const Table = (props) => {
   const { auth } = useContext(AuthContext);
-
   const { data: contactDetails } = GetContactDetails(auth?.userId);
 
   const location = useLocation();

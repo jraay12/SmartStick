@@ -87,3 +87,18 @@ const deleteUser = async(id) => {
 export const MutateDelete = () => {
   return useMutation((id) => deleteUser(id))
 }
+
+const deleteContacts = async(id) => {
+  const token = sessionStorage.getItem("access_token");
+  const validate = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/form-data",
+  };
+
+  return await axios.delete(`${baseUrl}/delete-contacts/${id}`, {headers: validate})
+
+}
+
+export const MutateDeleteContacts = () => {
+  return useMutation((id) => deleteContacts(id))
+}

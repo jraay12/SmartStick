@@ -5,17 +5,28 @@ import Button from "./Buttons";
 import Remove from "../assets/remove.png";
 import Edit from "../assets/edit.png";
 import View from "../assets/View.png";
-import { GetContactDetails } from "../api/axios";
+import { GetContactDetails, MutateDeleteContacts  } from "../api/axios";
 import { Outlet, useLocation } from "react-router-dom";
+import { useQueryClient } from "react-query";
+
 
 const Table = (props) => {
   const { auth } = useContext(AuthContext);
+  const client = useQueryClient()
   const { data: contactDetails } = GetContactDetails(auth?.userId);
-
+  const {mutate} = MutateDeleteContacts()
   const location = useLocation();
 
   const isSpecificRoute = location.pathname === "/Admin";
 
+  const handleDeleteContacts = (id) => {
+    mutate(id , {
+      onSuccess: (data) => {
+        console.log(data)
+        client.invalidateQueries(['details'])
+      }
+    })
+  }
   return (
     <div className="flex flex-col">
       <div className="flex items-center px-6 h-10 bg-tableColor  rounded-md w-[1000px] text-white text-lg">
@@ -84,6 +95,7 @@ const Table = (props) => {
                             image={Remove}
                             buttonName="Remove"
                             className="text-white p-2 min-w-[50px] font-semibold "
+                            onClick={() => handleDeleteContacts(items.id)}
                           />
                         </div>
 

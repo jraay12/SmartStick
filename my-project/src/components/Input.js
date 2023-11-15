@@ -9,6 +9,7 @@ const Input = forwardRef((props, ref) => {
       <input
         className="rounded-xl xxl:rounded-full px-4 outline-none focus:border-blue py-3 border-[1px] xxl:py-9 xxl:text-4xl border-[#0000006f]"
         placeholder={props.placeholder}
+        onBlur={props.onBlur}
         type={props.type}
         value={props.value}
         onChange={props.onChange}

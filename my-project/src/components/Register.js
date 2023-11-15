@@ -43,12 +43,13 @@ const Register = () => {
 
     userRegister(values, {
       onSuccess: async () => {
-        toast.success("Created Successfuly")
+        toast.success("Created Successfuly");
         client.invalidateQueries(["user-details"]);
         navigate(-1);
-      }, onError: async() => {
-        toast.error("Failed to Create")
-      }
+      },
+      onError: async () => {
+        toast.error("Failed to Create");
+      },
     });
   };
 
@@ -72,7 +73,7 @@ const Register = () => {
         navigate(-1);
       },
       onError: () => {
-        toast.error("Limit Exceed")
+        toast.error("Limit Exceed");
       },
     });
   };
@@ -105,7 +106,9 @@ const Register = () => {
                 label="Phone Number"
                 className="text-white"
                 value={number}
-                onChange={(e) => setNumber(e.target.value)}
+                onChange={(e) =>
+                  setNumber(e.target.value.replace(/[^0-9]/g, ""))
+                }
               />
               {isSpecificRoute && (
                 <>
@@ -120,6 +123,18 @@ const Register = () => {
                     className="text-white"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    onBlur={() => {
+                      const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                        email
+                      );
+                      if (isValidEmail) {
+                        toast.dismiss();
+                      } else {
+                        toast.error("Invalid Email Format", {
+                          autoClose: false,
+                        });
+                      }
+                    }}
                   />
                 </>
               )}
@@ -167,19 +182,12 @@ const Register = () => {
         </form>
       </div>
       <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
+        position="top-center"
+        autoClose={1000}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
         theme="light"
       />
-      {/* Same as */}
-      <ToastContainer />{" "}
     </div>
   );
 };

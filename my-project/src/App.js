@@ -7,6 +7,7 @@ import  ProtectedRoute  from "./auth/ProtectedRoute";
 import  UserProtectedRoute  from "./auth/UserProtectedRoute";
 import { QueryClient, QueryClientProvider } from "react-query";
 import UserContactDetails from "./components/UserContactDetails";
+import EditTable from "./components/EditTable";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ function App() {
         <Route element={<UserProtectedRoute />}>
           <Route path="/User" element={<User />}>
             <Route path="Register/:id" element={<Register />} />
+            <Route path="Edit/:id" element={<EditTable />} />
           </Route>
         </Route>
 

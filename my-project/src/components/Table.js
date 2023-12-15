@@ -6,13 +6,15 @@ import Remove from "../assets/remove.png";
 import Edit from "../assets/edit.png";
 import View from "../assets/View.png";
 import { GetContactDetails, MutateDeleteContacts  } from "../api/axios";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
+
 
 
 const Table = (props) => {
   const { auth } = useContext(AuthContext);
   const client = useQueryClient()
+  const navigate = useNavigate();
   const { data: contactDetails } = GetContactDetails(auth?.userId);
   const {mutate} = MutateDeleteContacts()
   const location = useLocation();
@@ -27,6 +29,11 @@ const Table = (props) => {
       }
     })
   }
+
+  const handleEditTable = (id) => {
+    navigate(`/User/Edit/${id}`)
+  }
+
   return (
     <div className="flex flex-col">
       <div className="flex items-center px-6 h-10 bg-tableColor  rounded-md w-[1000px] text-white text-lg">
@@ -104,6 +111,7 @@ const Table = (props) => {
                             image={Edit}
                             buttonName="Edit"
                             className="text-white  font-semibold p-2 min-w-[50px]"
+                            onClick={() => handleEditTable(items.id)}
                           />
                         </div>
 

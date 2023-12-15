@@ -86,7 +86,7 @@ const Register = () => {
     inputRef.current.focus();
   }, []);
 
-  console.log(isSpecificRoute);
+  
   return (
     <div className="flex justify-center items-center absolute inset-0 backdrop-blur-sm">
       <div className="min-h-[300px] min-w-[400px] max-w-[1000px] bg-cardColor rounded-lg">

@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Add from "../assets/Add.png";
 import Button from "./Buttons";
 import Remove from "../assets/remove.png";
 import Edit from "../assets/edit.png";
 import View from "../assets/View.png";
-import { UserDetails,  MutateDelete } from "../api/axios";
+import { UserDetails, MutateDelete } from "../api/axios";
 import { useQueryClient } from "react-query";
 import { Outlet } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 
 const Table = (props) => {
   const { data: userDetails } = UserDetails();
@@ -17,6 +16,7 @@ const Table = (props) => {
 
   const { mutate } = MutateDelete();
   const client = useQueryClient();
+
   const handleDelete = (value) => {
     mutate(value, {
       onSuccess: () => client.invalidateQueries(["user-details"]),
@@ -24,10 +24,13 @@ const Table = (props) => {
   };
 
   const handleUserContactsDetails = (id) => {
-    navigate(`/Admin/Details/${id}`)
-  }
+    navigate(`/Admin/Details/${id}`);
+  };
 
-  
+  const handleEdit = (id) => {
+    navigate(`/Admin/Edit-Users/${id}`);
+  };
+
   return (
     <div className="flex flex-col">
       <div className="flex items-center px-6 h-10 bg-tableColor  rounded-md w-[1000px] text-white text-lg">
@@ -102,6 +105,7 @@ const Table = (props) => {
                               image={Edit}
                               buttonName="Edit"
                               className="text-white  font-semibold p-2 min-w-[50px]"
+                              onClick={() => handleEdit(items?.id)}
                             />
                           </div>
                           <div className="bg-orange-400 rounded-lg min-w-[180px] hover:scale-105 transition">
@@ -109,7 +113,9 @@ const Table = (props) => {
                               image={View}
                               buttonName="View Contacts"
                               className="text-white  font-semibold p-2 min-w-[180px] w-[100px]"
-                              onClick={() => handleUserContactsDetails(items.id)}
+                              onClick={() =>
+                                handleUserContactsDetails(items.id)
+                              }
                             />
                           </div>
                         </td>

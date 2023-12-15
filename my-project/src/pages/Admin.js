@@ -5,6 +5,7 @@ import AdminTable from "../components/AdminTable";
 import userNumber from "../assets/userNumber.png";
 import { useNavigate } from "react-router-dom";
 import { UserDetails } from "../api/axios";
+import { ToastContainer } from "react-toastify";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const Admin = () => {
           />
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

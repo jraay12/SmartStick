@@ -1,20 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Buttons from "./Buttons";
 import Input from "./Input";
 import { useNavigate, useParams } from "react-router-dom";
-import { GetUserContactDetails } from "../api/axios";
-import AuthContext from "../auth/Context";
-import { MutateEditContacts } from "../api/axios";
+import { UserDetails, MutateUpdateUser } from "../api/axios";
 import { useQueryClient } from "react-query";
-const EditTable = () => {
+
+const EditUsers = () => {
   const navigate = useNavigate();
   const client = useQueryClient();
-  const { auth } = useContext(AuthContext);
   const { id } = useParams();
-  const { data } = GetUserContactDetails(auth?.userId);
-  const { mutate } = MutateEditContacts();
-  const [formData, setFormData] = useState({
+  const { mutate } = MutateUpdateUser();
+  const { data } = UserDetails();
+
+  const [value, setValue] = useState({
     name: "",
+    email: "",
     contact_number: "",
     street: "",
     province: "",
@@ -23,59 +23,54 @@ const EditTable = () => {
   });
 
   useEffect(() => {
-    const filter = data?.User?.find((item) => item?.id == id);
+    const filterData = data?.User?.find((item) => item.id == id);
+    setValue({
+      ...value,
+      name: filterData.name,
+      email: filterData.email,
+      contact_number: filterData.contact_number,
+      street: filterData.address.street,
+      province: filterData.address.province,
+      city: filterData.address.city,
+      zipcode: filterData.address.zipcode,
+    });
+  }, []);
 
-    if (filter) {
-      setFormData({
-        ...formData,
-        name: filter?.name,
-        contact_number: filter.contact_number,
-        street: filter.address.street,
-        province: filter.address.province,
-        city: filter.address.city,
-        zipcode: filter.address.zipcode,
-      });
-    }
-  }, [data, id]);
-
-  const handleEdit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     mutate(
-      { value: formData, id: id },
-      {
-        onSuccess: () => {
-          client.invalidateQueries(["details"]);
-          navigate(-1)
-        },
-      }
+      { value: value, id: id },
+      { onSuccess: () => {
+        client.invalidateQueries(["user-details"])
+        navigate(-1)
+      } }
     );
   };
 
   const handleCancel = () => {
-    navigate("/User");
+    navigate("/Admin");
   };
+
   return (
     <div className="flex justify-center items-center absolute inset-0 backdrop-blur-sm">
       <div className="min-h-[300px] min-w-[400px] max-w-[1000px] bg-cardColor rounded-lg">
-        <form onSubmit={handleEdit}>
+        <form onSubmit={handleSubmit}>
           <div className="space-y-2 m-6 ">
             <div className="flex flex-wrap justify-evenly gap-5">
               <Input
                 label="Name"
                 className="text-white"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
+                value={value?.name}
+                onChange={(e) => setValue({ ...value, name: e.target.value })}
                 // ref={inputRef}
               />
               <Input
                 label="Phone Number"
                 className="text-white"
-                value={formData.contact_number}
+                value={value?.contact_number}
                 onChange={(e) =>
-                  setFormData({ 
-                    ...formData,
+                  setValue({
+                    ...value,
                     contact_number: e.target.value.replace(/[^0-9]/g, ""),
                   })
                 }
@@ -83,33 +78,29 @@ const EditTable = () => {
               <Input
                 label="Street"
                 className="text-white"
-                value={formData.street}
-                onChange={(e) =>
-                  setFormData({ ...formData, street: e.target.value })
-                }
+                value={value?.street}
+                onChange={(e) => setValue({ ...value, street: e.target.value })}
               />
               <Input
                 label="City"
                 className="text-white"
-                value={formData.city}
-                onChange={(e) =>
-                  setFormData({ ...formData, city: e.target.value })
-                }
+                value={value?.city}
+                onChange={(e) => setValue({ ...value, city: e.target.value })}
               />
               <Input
                 label="Province"
                 className="text-white"
                 onChange={(e) =>
-                  setFormData({ ...formData, province: e.target.value })
+                  setValue({ ...value, province: e.target.value })
                 }
-                value={formData.province}
+                value={value?.province}
               />
               <Input
                 label="Zipcode"
                 className="text-white"
-                value={formData.zipcode}
+                value={value?.zipcode}
                 onChange={(e) =>
-                  setFormData({ ...formData, zipcode: e.target.value })
+                  setValue({ ...value, zipcode: e.target.value })
                 }
               />
             </div>
@@ -132,4 +123,4 @@ const EditTable = () => {
   );
 };
 
-export default EditTable;
+export default EditUsers;

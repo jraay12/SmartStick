@@ -139,3 +139,21 @@ const editContacts = async (value, id) => {
 export const MutateEditContacts = () => {
   return useMutation(({value, id}) => editContacts(value, id))
 }
+
+//user
+
+const UpdateUser = async(value, id) => {
+  const token = sessionStorage.getItem("access_token");
+  const validate = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+
+  return await axios.patch(`${baseUrl}/update-user/${id}`, value, {
+    headers: validate,
+  });
+}
+
+export const MutateUpdateUser = () => {
+  return useMutation(({value, id}) => UpdateUser(value, id))
+}

@@ -14,6 +14,7 @@ const Input = forwardRef((props, ref) => {
         value={props.value}
         onChange={props.onChange}
         ref={ref}
+        required
       >
         {props.name}
       </input>

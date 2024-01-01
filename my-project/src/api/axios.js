@@ -157,3 +157,19 @@ const UpdateUser = async(value, id) => {
 export const MutateUpdateUser = () => {
   return useMutation(({value, id}) => UpdateUser(value, id))
 }
+
+// Handle For Location
+const getLocation = async(id) => {
+  const token = sessionStorage.getItem("access_token");
+  const validate = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+
+  const response = await axios.get(`${baseUrl}/get-location/${id}`, {headers: validate})
+  return response.data
+}
+
+export const GetLocation = (id) => {
+  return useQuery(['location'], ()=> getLocation(id))
+}

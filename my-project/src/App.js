@@ -3,12 +3,13 @@ import Login from "./pages/Login";
 import User from "./pages/User";
 import Register from "./components/Register";
 import Admin from "./pages/Admin";
-import  ProtectedRoute  from "./auth/ProtectedRoute";
-import  UserProtectedRoute  from "./auth/UserProtectedRoute";
+import ProtectedRoute from "./auth/ProtectedRoute";
+import UserProtectedRoute from "./auth/UserProtectedRoute";
 import { QueryClient, QueryClientProvider } from "react-query";
 import UserContactDetails from "./components/UserContactDetails";
 import EditTable from "./components/EditTable";
 import EditUsers from "./components/EditUsers";
+import Map from "./components/Map";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="Edit/:id" element={<EditTable />} />
           </Route>
         </Route>
+        <Route path="/Map" element={<Map />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path="/Admin" element={<Admin />}>

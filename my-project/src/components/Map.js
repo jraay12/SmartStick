@@ -30,7 +30,7 @@ const Map = () => {
 
       {data?.map((location, index) => (
         <Marker
-          key={index}
+          key={location?.id}
           position={[parseFloat(location.latitude), parseFloat(location.longitude)]}
           icon={customIcon}
         >

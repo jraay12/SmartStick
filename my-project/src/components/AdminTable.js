@@ -35,8 +35,8 @@ const Table = (props) => {
     <div className="flex flex-col">
       <div className="flex items-center px-6 h-10 bg-tableColor  rounded-md w-[1000px] text-white text-lg">
         {props.label}
-        <div className="flex w-full justify-end ">
-          <div className="flex items-center bg-green-600 rounded-xl w-36 z-0 ">
+        <div className="flex w-full justify-end">
+          <div className="flex items-center bg-green-600 rounded-xl w-36 z-0 space-x-4">
             <img
               src={Add}
               className="absolute object-contain h-[20px] w-[20px] mx-2 z-0"
@@ -96,7 +96,7 @@ const Table = (props) => {
                             <Button
                               image={Remove}
                               buttonName="Remove"
-                              className="text-white p-2 min-w-[50px] font-semibold "
+                              className=" p-2 min-w-[50px] font-semibold "
                               onClick={() => handleDelete(items?.id)}
                             />
                           </div>
@@ -104,7 +104,7 @@ const Table = (props) => {
                             <Button
                               image={Edit}
                               buttonName="Edit"
-                              className="text-white  font-semibold p-2 min-w-[50px]"
+                              className="  font-semibold p-2 min-w-[50px]"
                               onClick={() => handleEdit(items?.id)}
                             />
                           </div>
@@ -112,7 +112,7 @@ const Table = (props) => {
                             <Button
                               image={View}
                               buttonName="View Contacts"
-                              className="text-white  font-semibold p-2 min-w-[180px] w-[100px]"
+                              className="  font-semibold p-2 min-w-[180px] w-[100px]"
                               onClick={() =>
                                 handleUserContactsDetails(items.id)
                               }

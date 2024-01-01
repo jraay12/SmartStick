@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Logout from "../assets/Logout.png";
 import profile from "../assets/profile.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Profile from "./Profile";
 
 const DropDownItem = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const isSpecificRoute = location.pathname === "/User";
 
   useEffect(() => {
     setOpen(false);
@@ -22,17 +24,23 @@ const DropDownItem = () => {
 
   return (
     <div className="flex justify-end items-end">
-      <div className="bg-white h-16 w-28 absolute top-16 rounded-md">
+      <div
+        className={`bg-white w-28 absolute top-16 rounded-md ${
+          isSpecificRoute ? "h-16" : "h-7"
+        }`}
+      >
         <div className="flex flex-col">
-          <button
-            className="font-semibold border-b-2 text-sm pb-2"
-            onClick={handleMaps}
-          >
-            <span>
-              <img src={profile} className="absolute w-[20px] h-[20px] m-1" />
-            </span>
-            Maps
-          </button>
+          {isSpecificRoute && (
+            <button
+              className="font-semibold border-b-2 text-sm pb-2"
+              onClick={handleMaps}
+            >
+              <span>
+                <img src={profile} className="absolute w-[20px] h-[20px] m-1" />
+              </span>
+              Maps
+            </button>
+          )}
           <button className="font-semibold text-sm" onClick={handleLogout}>
             <span>
               <img src={Logout} className="absolute w-[20px] h-[20px] m-1" />

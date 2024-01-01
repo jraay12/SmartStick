@@ -5,34 +5,32 @@ import Button from "./Buttons";
 import Remove from "../assets/remove.png";
 import Edit from "../assets/edit.png";
 import View from "../assets/View.png";
-import { GetContactDetails, MutateDeleteContacts  } from "../api/axios";
+import { GetContactDetails, MutateDeleteContacts } from "../api/axios";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
 
-
-
 const Table = (props) => {
   const { auth } = useContext(AuthContext);
-  const client = useQueryClient()
+  const client = useQueryClient();
   const navigate = useNavigate();
   const { data: contactDetails } = GetContactDetails(auth?.userId);
-  const {mutate} = MutateDeleteContacts()
+  const { mutate } = MutateDeleteContacts();
   const location = useLocation();
 
   const isSpecificRoute = location.pathname === "/Admin";
 
   const handleDeleteContacts = (id) => {
-    mutate(id , {
+    mutate(id, {
       onSuccess: (data) => {
-        console.log(data)
-        client.invalidateQueries(['details'])
-      }
-    })
-  }
+        console.log(data);
+        client.invalidateQueries(["details"]);
+      },
+    });
+  };
 
   const handleEditTable = (id) => {
-    navigate(`/User/Edit/${id}`)
-  }
+    navigate(`/User/Edit/${id}`);
+  };
 
   return (
     <div className="flex flex-col">
@@ -101,7 +99,7 @@ const Table = (props) => {
                           <Button
                             image={Remove}
                             buttonName="Remove"
-                            className="text-white p-2 min-w-[50px] font-semibold "
+                            className=" p-2 min-w-[50px] font-semibold "
                             onClick={() => handleDeleteContacts(items.id)}
                           />
                         </div>
@@ -110,7 +108,7 @@ const Table = (props) => {
                           <Button
                             image={Edit}
                             buttonName="Edit"
-                            className="text-white  font-semibold p-2 min-w-[50px]"
+                            className="  font-semibold p-2 min-w-[50px]"
                             onClick={() => handleEditTable(items.id)}
                           />
                         </div>

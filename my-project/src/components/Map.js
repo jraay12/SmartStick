@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet"; // Import Leaflet library
-import "leaflet/dist/leaflet.css"; // Import Leaflet CSS
+import L from "leaflet"; 
+import "leaflet/dist/leaflet.css"; 
 import icon from "../assets/images.png";
 import { GetLocation } from "../api/axios";
 import AuthContext from "../auth/Context";
@@ -11,14 +11,13 @@ const Map = () => {
   const { data } = GetLocation(auth.userId);
   console.log(data);
 
-  const zoom = 13; // Initial zoom level
+  const zoom = 13; 
 
-  // Create a custom icon
   const customIcon = new L.Icon({
-    iconUrl: icon, // Replace with the path to your custom icon
-    iconSize: [50, 50], // Size of the icon
-    iconAnchor: [16, 32], // Anchor point of the icon
-    popupAnchor: [0, -32], // Popup anchor point
+    iconUrl: icon, 
+    iconSize: [50, 50], 
+    iconAnchor: [16, 32], 
+    popupAnchor: [0, -32],
   });
 
   return (

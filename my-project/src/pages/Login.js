@@ -24,8 +24,8 @@ const Login = () => {
   }, []);
 
   const handleLink = () => {
-    navigate("/reset-password")
-  }
+    navigate("/reset-password");
+  };
   const handleLogin = (e) => {
     e.preventDefault();
     const infos = { email, password };
@@ -85,7 +85,11 @@ const Login = () => {
                     className="bg-blue-500 min-w-full"
                   />
                 </div>
-                <Link className="text-red-500 text-sm" to={handleLink()}>Forgot Password?</Link>
+                <div>
+                  <button onClick={handleLink} className="text-red-500">
+                    Forgot Password?
+                  </button>
+                </div>
               </div>
             </div>
           </form>

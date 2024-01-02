@@ -10,8 +10,8 @@ const ResetPassword = () => {
         navigate("/Login")
     }
   return (
-    <div className="flex justify-center items-center w-screen h-screen">
-      <div className="max-w-[400px] min-h-[350px] rounded-lg drop-shadow-2xl border-[1px] shadow-2xl">
+    <div className="flex justify-center items-center w-screen h-screen bg-darkBlue">
+      <div className="max-w-[400px] min-h-[350px] rounded-lg drop-shadow-2xl border-[1px] shadow-2xl bg-white">
         <div className="flex flex-col gap-10 m-4">
           <div>
           <p className="text-black text-sm mb-6">Enter your user account's verified email address and we will send you a password reset link.</p>
@@ -21,7 +21,7 @@ const ResetPassword = () => {
           <div>
             <Input label="Please enter you email" type="email" />
           </div>
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-between gap-4">
             <Button buttonName="Send Request" className="border-[2px] p-2 bg-blue-500 text-white"/>
 
             <Button buttonName="Cancel " className="border-[2px] p-2 bg-red-500 text-white" onClick={handleCancel}/>

@@ -9,7 +9,6 @@ import AuthContext from "../auth/Context";
 const Map = () => {
   const { auth } = useContext(AuthContext);
   const { data } = GetLocation(auth.userId);
-  console.log(data);
 
   const zoom = 13; 
 
@@ -27,7 +26,7 @@ const Map = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      {data?.map((location, index) => (
+      {Array.isArray(data) && data?.map((location, index) => (
         <Marker
           key={location?.id}
           position={[parseFloat(location.latitude), parseFloat(location.longitude)]}

@@ -11,6 +11,7 @@ import EditTable from "./components/EditTable";
 import EditUsers from "./components/EditUsers";
 import Map from "./components/Map";
 import ResetPassword from "./pages/ResetPassword";
+import NewPassword from "./pages/NewPassword";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,8 @@ function App() {
         </Route>
         <Route path="/Map" element={<Map />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/new-password" element={<NewPassword />} />
+
 
         <Route element={<ProtectedRoute />}>
           <Route path="/Admin" element={<Admin />}>

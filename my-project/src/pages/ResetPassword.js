@@ -39,12 +39,12 @@ const ResetPassword = () => {
       <div className="max-w-[400px] min-h-[350px] rounded-lg drop-shadow-2xl border-[1px] shadow-2xl bg-white">
         <div className="flex flex-col gap-10 m-4">
           <div>
-            <p className="text-black text-sm mb-6">
+            <h1 className="text-4xl font-bold">Reset Password</h1>
+            <hr className="mt-2 border-black" />
+            <p className="text-black text-sm mt-6">
               Enter your user account's verified email address and we will send
               you a password reset link.
             </p>
-            <h1 className="text-4xl font-bold">Reset Password</h1>
-            <hr className="mt-2 border-black" />
           </div>
           <form onSubmit={handleSubmit} className="space-y-6">
             {success ? (
@@ -92,7 +92,6 @@ const ResetPassword = () => {
         pauseOnHover
         theme="light"
       />
-      
     </div>
   );
 };

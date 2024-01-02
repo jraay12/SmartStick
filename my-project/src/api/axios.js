@@ -173,3 +173,16 @@ const getLocation = async(id) => {
 export const GetLocation = (id) => {
   return useQuery(['location'], ()=> getLocation(id))
 }
+
+// Send link for password reset
+
+const resetLink = async(value) => {
+  const validate = {
+    "Content-Type" : "application/json"
+  }
+  return await axios.post(`${baseUrl}/forgot-password`, value, {headers: validate })
+}
+
+export const ResetLink = () => {
+  return useMutation(({value}) => resetLink(value))
+}

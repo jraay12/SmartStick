@@ -5,7 +5,7 @@ import Input from "../components/Input";
 import Buttons from "../components/Buttons";
 import Logo from "../assets/smartStickLogo.png";
 import { MutateLogin } from "../api/axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../auth/Context";
 
 const Login = () => {
@@ -23,6 +23,9 @@ const Login = () => {
     inputRef.current.focus();
   }, []);
 
+  const handleLink = () => {
+    navigate("/reset-password")
+  }
   const handleLogin = (e) => {
     e.preventDefault();
     const infos = { email, password };
@@ -41,9 +44,9 @@ const Login = () => {
         }
         setAuth({ name, userId, role, number });
       },
-      onError : () => {
-        toast.error("Invalid Credentials")
-      }
+      onError: () => {
+        toast.error("Invalid Credentials");
+      },
     });
   };
 
@@ -74,12 +77,15 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
 
-              <div className="w-full h-10 xxl:h-20 xxl:text-4xl rounded-lg  flex justify-center items-center font-bold bg-blue hover:bg-opacity-60 text-white text-lg xxl:mt-10 mt-2">
-                <Buttons
-                  buttonName="Login"
-                  type="submit"
-                  className="bg-blue-500 min-w-full"
-                />
+              <div className="flex flex-col gap-4">
+                <div className="w-full h-10 xxl:h-20 xxl:text-4xl rounded-lg  flex justify-center items-center font-bold bg-blue hover:bg-opacity-60 text-white text-lg xxl:mt-10 mt-2">
+                  <Buttons
+                    buttonName="Login"
+                    type="submit"
+                    className="bg-blue-500 min-w-full"
+                  />
+                </div>
+                <Link className="text-red-500 text-sm" to={handleLink()}>Forgot Password?</Link>
               </div>
             </div>
           </form>

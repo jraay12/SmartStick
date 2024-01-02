@@ -5,7 +5,7 @@ import Input from "../components/Input";
 import Buttons from "../components/Buttons";
 import Logo from "../assets/smartStickLogo.png";
 import { MutateLogin } from "../api/axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../auth/Context";
 
 const Login = () => {
@@ -107,8 +107,6 @@ const Login = () => {
         pauseOnHover
         theme="light"
       />
-      {/* Same as */}
-      <ToastContainer />{" "}
     </div>
   );
 };

@@ -3,6 +3,8 @@ import Input from "../components/Input";
 import Button from "../components/Buttons";
 import { useNavigate } from "react-router-dom";
 import { ResetLink } from "../api/axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -21,10 +23,10 @@ const ResetPassword = () => {
           setSuccess(true);
           setTimeout(() => {
             navigate("/login");
-          }, 2000);
+          }, 3000);
         },
         onError: (err) => {
-          console.log(err);
+          toast.error("Email not found");
         },
       }
     );
@@ -78,6 +80,19 @@ const ResetPassword = () => {
           </form>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      
     </div>
   );
 };

@@ -135,14 +135,13 @@ const editContacts = async (value, id) => {
   });
 };
 
-
 export const MutateEditContacts = () => {
-  return useMutation(({value, id}) => editContacts(value, id))
-}
+  return useMutation(({ value, id }) => editContacts(value, id));
+};
 
 //user
 
-const UpdateUser = async(value, id) => {
+const UpdateUser = async (value, id) => {
   const token = sessionStorage.getItem("access_token");
   const validate = {
     Authorization: `Bearer ${token}`,
@@ -152,37 +151,55 @@ const UpdateUser = async(value, id) => {
   return await axios.patch(`${baseUrl}/update-user/${id}`, value, {
     headers: validate,
   });
-}
+};
 
 export const MutateUpdateUser = () => {
-  return useMutation(({value, id}) => UpdateUser(value, id))
-}
+  return useMutation(({ value, id }) => UpdateUser(value, id));
+};
 
 // Handle For Location
-const getLocation = async(id) => {
+const getLocation = async (id) => {
   const token = sessionStorage.getItem("access_token");
   const validate = {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   };
 
-  const response = await axios.get(`${baseUrl}/get-location/${id}`, {headers: validate})
-  return response.data
-}
+  const response = await axios.get(`${baseUrl}/get-location/${id}`, {
+    headers: validate,
+  });
+  return response.data;
+};
 
 export const GetLocation = (id) => {
-  return useQuery(['location'], ()=> getLocation(id))
-}
+  return useQuery(["location"], () => getLocation(id));
+};
 
 // Send link for password reset
 
-const resetLink = async(value) => {
+const resetLink = async (value) => {
   const validate = {
-    "Content-Type" : "application/json"
-  }
-  return await axios.post(`${baseUrl}/forgot-password`, value, {headers: validate })
-}
+    "Content-Type": "application/json",
+  };
+  return await axios.post(`${baseUrl}/forgot-password`, value, {
+    headers: validate,
+  });
+};
 
 export const ResetLink = () => {
-  return useMutation(({value}) => resetLink(value))
-}
+  return useMutation(({ value }) => resetLink(value));
+};
+
+// New password
+const newPassword = async (value) => {
+  const validate = {
+    "Content-Type": "application/json",
+  };
+  return await axios.post(`${baseUrl}/new-password`, value, {
+    headers: validate,
+  });
+};
+
+export const ChangePassword = () => {
+  return useMutation(({ value }) => newPassword(value));
+};
